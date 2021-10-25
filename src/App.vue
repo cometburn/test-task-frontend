@@ -51,9 +51,6 @@ export default {
     });
   },
   methods: {
-    clickHandler() {
-      console.log("test");
-    },
     createToast(obj) {
       const h = this.$createElement;
 

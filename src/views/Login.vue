@@ -57,7 +57,6 @@ export default {
     async onSubmit() {
       await this.$store.dispatch("authLogin", this.credentials);
       if (this.isAuthenticated) {
-        console.log(this.isUserAdmin);
         this.$router.push({ path: this.isUserAdmin ? "/users" : "/task" });
       }
     },

@@ -27,7 +27,6 @@ const actions = {
         commit("setError", null);
       })
       .catch((err) => {
-        console.log(err);
         commit("setError", {
           status: err.response.status,
           statusText: err.response.statusText,
