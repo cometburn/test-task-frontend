@@ -1,0 +1,151 @@
+@import "./_variables.scss";
+@import "./icofonts.scss";
+
+@import "./node_modules/bootstrap/scss/bootstrap.scss";
+@import "./node_modules/bootstrap-vue/src/index.scss";
+
+.container {
+  &-fluid {
+    &.authenticated {
+      padding: 0;
+    }
+  }
+}
+
+.app-admin {
+  background-color: $admin-bg;
+}
+
+.main-wrapper,
+.main-wrapper-admin {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.main-wrapper {
+  color: $gray;
+  &-admin {
+    color: $grayscale-black;
+  }
+}
+
+.btn {
+  &-black {
+    background-color: $black;
+  }
+  &-transparent {
+    background-color: transparent;
+    border: none;
+    color: $gray;
+    outline: none;
+    &:hover,
+    &:focus,
+    &.active {
+      background-color: transparent;
+      color: $gray;
+      outline: none;
+      box-shadow: none;
+      text-decoration: none;
+    }
+  }
+}
+
+.sidebar-wrapper,
+.sidebar-wrapper-admin {
+  min-width: 250px;
+  .nav {
+    &-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    &-item {
+      &:last-child {
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+    &-link {
+      min-height: 56px;
+      line-height: 40px;
+    }
+  }
+}
+
+.sidebar-wrapper {
+  .nav {
+    &-link {
+      color: $black;
+      &.active {
+        border-radius: 0 27px 27px 0;
+        background-color: $black;
+        color: $white;
+      }
+    }
+  }
+}
+
+.sidebar-wrapper-admin {
+  background-color: $black;
+  .nav {
+    &-link {
+      border-left: 3px solid $black;
+      color: $sidebar-gray;
+      &.active {
+        background-color: rgba(159, 162, 180, 0.08);
+        border-left: 3px solid $admin-sidebar-active;
+        color: $white;
+      }
+    }
+  }
+}
+
+.toast {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.27);
+  overflow: hidden;
+  &-header {
+    display: block;
+  }
+  &-body {
+    padding: 0;
+  }
+  &-content {
+    padding: 10px;
+    h6 {
+      font-size: 18px;
+    }
+    .detail {
+      font-size: 16px;
+    }
+  }
+
+  &-icon {
+    background-color: $toast-icon;
+    border-radius: 10px;
+    display: table-cell;
+    height: 52px;
+    text-align: center;
+    vertical-align: middle;
+    width: 52px;
+    i {
+      font-size: 20px;
+    }
+  }
+
+  &-footer {
+    background-color: $toast-footer;
+
+    > * {
+      color: $black;
+      font-size: 12px;
+    }
+  }
+}
+.modal {
+  &-header,
+  &-footer {
+    border: none;
+  }
+}
