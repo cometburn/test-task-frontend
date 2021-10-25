@@ -12,11 +12,9 @@
           <side-bar />
         </b-col>
         <b-col
-          :class="
-            isAuthenticated && isUserAdmin
-              ? 'main-wrapper-admin ml-4'
-              : 'main-wrapper ml-4'
-          "
+          :class="`ml-4 main-wrapper${
+            isAuthenticated ? (isUserAdmin ? '-admin' : '') : 'overflow-hidden'
+          }`"
         >
           <main>
             <router-view />
