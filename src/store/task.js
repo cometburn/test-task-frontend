@@ -60,12 +60,10 @@ const actions = {
     await axios
       .put(api.apiUrl + "tasks/update/" + payload.id, payload, AxiosConfig())
       .then((res) => {
-        console.log("payload.forEdit", payload.forEdit);
         commit(payload.forEdit ? "editTask" : "updateTask", res.data);
         commit("setError", null);
       })
       .catch((err) => {
-        console.log(err);
         commit("setError", {
           status: err.response.status,
           statusText: err.response.statusText,
@@ -153,16 +151,12 @@ const mutations = {
     }
   },
   editTask(state, data) {
-    console.log(data);
     const id = data.isCompleted ? "complete" : "incomplete";
-
-    console.log("id", id);
 
     const idx = state.taskList[id].findIndex((o) => o.id === data.id);
     state.taskList[id].splice(idx, 1, data);
   },
   updateTask(state, data) {
-    console.log(data.isCompleted);
     if (data.isCompleted) {
       const idx = state.taskList.incomplete.findIndex((o) => o.id === data.id);
       state.taskList.incomplete.splice(idx, 1);

@@ -57,12 +57,9 @@ export default {
       await this.$store.dispatch("updateTask", item);
     },
     async onDeleteTask(item) {
-      console.log(item);
       await this.$store.dispatch("deleteTask", item);
     },
     async onSave() {
-      console.log("this.objTask", this.objTask);
-      console.log("this.isAdd", this.isAdd);
       await this.$store.dispatch(
         this.isAdd ? "addTask" : "updateTask",
         this.objTask

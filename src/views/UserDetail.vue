@@ -68,7 +68,6 @@ export default {
   },
   methods: {
     onShowMap(item) {
-      console.log("showmap", item);
       window.open(
         `https://www.google.com/maps/place/${item.lat}+${item.long}/`,
         "_blank"
