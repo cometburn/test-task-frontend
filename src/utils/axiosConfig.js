@@ -7,6 +7,7 @@ const AxiosConfig = (config = axios.defaults) => {
   }
 
   config.withCredentials = true;
+  config.credentials = "include";
 
   return config;
 };
