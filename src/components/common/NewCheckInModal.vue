@@ -58,30 +58,10 @@ export default {
   data() {
     return {
       helper: helper,
-      isCoorLoaded: false,
       location: {},
     };
   },
-  mounted() {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        Object.assign(this.location, {
-          ...this.checkin,
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-        });
-
-        // fetch location names
-        // from google geolocations
-
-        this.isCoorLoaded = true;
-      },
-      (error) => {
-        // eslint-disable-next-line no-console
-        console.log(error.message);
-      }
-    );
-  },
+  mounted() {},
   methods: {
     onSubmit() {
       Object.assign(this.checkin, this.location);
@@ -93,13 +73,13 @@ export default {
   },
   computed: {
     latitude() {
-      return !this.helper.isEmpty(this.location.lat) && this.isCoorLoaded
-        ? this.helper.convertLat(this.location.lat)
+      return !this.helper.isEmpty(this.checkin.lat)
+        ? this.helper.convertLat(this.checkin.lat)
         : "";
     },
     longitude() {
-      return !this.helper.isEmpty(this.location.long) && this.isCoorLoaded
-        ? this.helper.convertLong(this.location.long)
+      return !this.helper.isEmpty(this.checkin.long)
+        ? this.helper.convertLong(this.checkin.long)
         : "";
     },
   },

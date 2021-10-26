@@ -2,7 +2,12 @@
   <div class="mt-4">
     <b-row no-gutters>
       <b-col>
-        <b-btn class="btn-transparent" variant="link" @click="onOpenModal">
+        <b-btn
+          class="btn-transparent"
+          variant="link"
+          @click="onOpenModal"
+          :disabled="!isCoorLoaded"
+        >
           <span class="font-weight-bold">+ Check In</span>
         </b-btn>
       </b-col>
@@ -80,10 +85,14 @@ export default {
     return {
       helper: helper,
       objCheckIn: {},
+      lat: null,
+      long: null,
+      isCoorLoaded: false,
     };
   },
   mounted() {
     this.fetchCheckIns();
+    this.getPosition();
   },
   methods: {
     convertLat(coor) {
@@ -101,12 +110,29 @@ export default {
       this.objCheckIn = {
         title: "Check In",
         location: "",
-        lat: "",
-        long: "",
+        lat: this.lat,
+        long: this.long,
         submit: this.onSave,
       };
 
       this.$bvModal.show("new-checkin-modal");
+    },
+    getPosition() {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          this.lat = position.coords.latitude;
+          this.long = position.coords.longitude;
+
+          // fetch location names
+          // from google geolocations
+
+          this.isCoorLoaded = true;
+        },
+        (error) => {
+          // eslint-disable-next-line no-console
+          console.log(error.message);
+        }
+      );
     },
     async fetchCheckIns() {
       await this.$store.dispatch("fetchCheckIns");
