@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import api from "@/utils/api";
 
 const state = {};
@@ -30,6 +31,8 @@ const actions = {
 const mutations = {
   setAuth(state, data) {
     this.state.user = data;
+
+    Cookies.set("test_task", data.refreshToken);
   },
 };
 
