@@ -48,8 +48,8 @@ export default {
     return {
       helper: helper,
       credentials: {
-        email: "admin@test.com",
-        password: "p@55w0rd",
+        email: "",
+        password: "",
       },
     };
   },

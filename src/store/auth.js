@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import api from "@/utils/api";
 
 const state = {};
@@ -9,7 +9,11 @@ const getters = {};
 const actions = {
   async authLogin({ commit }, user) {
     await axios
-      .post(api.apiUrl + "auth", user)
+      .post(api.apiUrl + "auth", user, {
+        // Also important to set both options
+        credentials: "include",
+        mode: "cors",
+      })
       .then((res) => {
         commit("setAuth", res.data);
         commit("setError", null);
@@ -32,7 +36,7 @@ const mutations = {
   setAuth(state, data) {
     this.state.user = data;
 
-    Cookies.set("test_task", data.refreshToken);
+    // Cookies.set("test_task", data.refreshToken);
   },
 };
 

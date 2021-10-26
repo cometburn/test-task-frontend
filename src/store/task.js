@@ -60,7 +60,24 @@ const actions = {
     await axios
       .put(api.apiUrl + "tasks/update/" + payload.id, payload, AxiosConfig())
       .then((res) => {
-        commit("updateTask", res.data);
+        console.log("payload.forEdit", payload.forEdit);
+        commit(payload.forEdit ? "editTask" : "updateTask", res.data);
+        commit("setError", null);
+      })
+      .catch((err) => {
+        console.log(err);
+        commit("setError", {
+          status: err.response.status,
+          statusText: err.response.statusText,
+          data: err.response.data,
+        });
+      });
+  },
+  async deleteTask({ commit }, payload) {
+    await axios
+      .delete(api.apiUrl + "tasks/delete/" + payload.id, payload, AxiosConfig())
+      .then(() => {
+        commit("deleteTask", payload);
         commit("setError", null);
       })
       .catch((err) => {
@@ -70,9 +87,6 @@ const actions = {
           data: err.response.data,
         });
       });
-  },
-  authLogout({ commit }) {
-    commit("setAuth", false);
   },
 };
 
@@ -138,21 +152,56 @@ const mutations = {
       }, millsUntilTime);
     }
   },
+  editTask(state, data) {
+    console.log(data);
+    const id = data.isCompleted ? "complete" : "incomplete";
+
+    console.log("id", id);
+
+    const idx = state.taskList[id].findIndex((o) => o.id === data.id);
+    state.taskList[id].splice(idx, 1, data);
+  },
   updateTask(state, data) {
-    const idx = state.taskList.incomplete.findIndex((o) => o.id === data.id);
+    console.log(data.isCompleted);
     if (data.isCompleted) {
+      const idx = state.taskList.incomplete.findIndex((o) => o.id === data.id);
       state.taskList.incomplete.splice(idx, 1);
       state.taskList.completed.unshift(data);
     } else {
-      state.taskList.incomplete.splice(idx, 1, data);
+      const idx = state.taskList.completed.findIndex((o) => o.id === data.id);
+      state.taskList.completed.splice(idx, 1);
+      state.taskList.incomplete.unshift(data);
 
       // add timeout
       const objDate = new Date(`${data.taskDate} ${data.taskTime}`);
       const millsUntilTime = helper.getMillsUntilTime(objDate);
 
-      state.taskList.timeOuts[data.id] = setTimeout(() => {
-        eventbus.$emit("evnt-toast", data);
-      }, millsUntilTime);
+      const forAlarm =
+        new Date(data.taskDate).toLocaleDateString() ===
+          new Date().toLocaleDateString() &&
+        helper.compareDateTimetoCurrent(
+          new Date(`${data.taskDate} ${data.taskTime}`)
+        );
+
+      // add timeout if time is today and
+      // greater than current time
+      if (millsUntilTime > 0 && forAlarm) {
+        state.taskList.timeOuts[data.id] = setTimeout(() => {
+          eventbus.$emit("evnt-toast", data);
+        }, millsUntilTime);
+      }
+    }
+  },
+  deleteTask(state, data) {
+    if (data.isCompleted) {
+      let idx = state.taskList.completed.findIndex((o) => o.id === data.id);
+      state.taskList.completed.splice(idx, 1);
+
+      idx = state.taskList.forAlarm.findIndex((o) => o.id === data.id);
+      state.taskList.forAlarm.splice(idx, 1);
+    } else {
+      const idx = state.taskList.incomplete.findIndex((o) => o.id === data.id);
+      state.taskList.incomplete.splice(idx, 1);
     }
   },
 };

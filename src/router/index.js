@@ -49,6 +49,12 @@ const routes = [
     component: () => import("../views/User.vue"),
     beforeEnter: checkAdminAccess,
   },
+  {
+    path: "/user/:id",
+    name: "UserDetail",
+    component: () => import("../views/UserDetail.vue"),
+    beforeEnter: checkAdminAccess,
+  },
 ];
 
 const router = new VueRouter({

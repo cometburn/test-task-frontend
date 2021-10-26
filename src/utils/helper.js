@@ -30,11 +30,12 @@ const formatTaskDate = (date) => {
     return `Today, ${inTime}`;
   else if (tomorrow.toLocaleDateString() === dbDate.toLocaleDateString())
     return `Tomorrow, ${inTime}`;
-  else
+  else {
     return `${dbDate.toLocaleDateString("en-GB", {
       day: "numeric",
       month: "short",
     })}, ${inTime}`;
+  }
 };
 
 const getMillsUntilTime = (dateObj) => {

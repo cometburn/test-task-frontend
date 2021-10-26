@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import auth from "./auth.js";
 import task from "./task.js";
 import location from "./location.js";
+import users from "./users.js";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     auth,
     task,
     location,
+    users,
   },
   state: {
     authenticated: false,

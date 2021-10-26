@@ -25,11 +25,11 @@
         :active="isActiveLink('/overview')"
         @click="gotoUrl('/overview')"
       >
-        <i class="icon-task mx-3"></i>
+        <i class="icon-overview mx-3"></i>
         Overview
       </b-nav-item>
       <b-nav-item :active="isActiveLink('/users')" @click="gotoUrl('/users')">
-        <i class="icon-task mx-3"></i>
+        <i class="icon-user mx-3"></i>
         Users
       </b-nav-item>
       <b-nav-item @click="onLogout" class="text-white">

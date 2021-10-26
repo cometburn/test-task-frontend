@@ -8,6 +8,7 @@ const AxiosConfig = (config = axios.defaults) => {
 
   config.withCredentials = true;
   config.credentials = "include";
+  config.mode = "cors";
 
   return config;
 };
