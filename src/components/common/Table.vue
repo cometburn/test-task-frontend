@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     onUserDetails(item) {
-      console.log("onUserDetails", item);
       this.$router.push({ path: `/user/${item.id}`, params: item.id });
     },
     status(item) {
