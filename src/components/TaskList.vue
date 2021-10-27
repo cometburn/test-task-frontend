@@ -41,20 +41,13 @@
                   </span>
                 </label>
               </b-col>
-              <b-col md="auto">
+              <b-col md="auto" class="">
                 <b-btn
-                  variant="outline-success"
-                  class="mt-2 mr-1"
+                  variant="link"
+                  class="btn-transparent mt-2"
                   @click="onEdit(item)"
                 >
-                  <i class="icon-pencil" />
-                </b-btn>
-                <b-btn
-                  variant="outline-danger"
-                  class="mt-2"
-                  @click="onDelete(item)"
-                >
-                  <i class="icon-bin" />
+                  <i class="icon-ellipsis" />
                 </b-btn>
               </b-col>
             </b-row>
@@ -73,7 +66,6 @@ export default {
     list: Array,
     onEdit: Function,
     onUpdate: Function,
-    onDelete: Function,
   },
   data() {
     return {

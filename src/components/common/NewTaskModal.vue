@@ -24,9 +24,6 @@
               class="ml-2"
               required
             ></b-form-input>
-            <!-- <b-form-invalid-feedback id="input-title" class="ml-3 mt-0">
-              Summary required.
-            </b-form-invalid-feedback> -->
           </b-col>
         </b-row>
         <hr />
@@ -88,6 +85,19 @@
             </b-button>
           </b-col>
         </b-row>
+        <b-row align-h="center" class="my-2">
+          <b-col cols="12" md="6">
+            <b-button
+              size="lg"
+              pill
+              block
+              variant="danger"
+              @click="onDelete(task)"
+            >
+              Delete
+            </b-button>
+          </b-col>
+        </b-row>
         <b-row align-h="center">
           <b-col cols="12" md="6">
             <b-button
@@ -107,7 +117,10 @@
 
 <script>
 export default {
-  props: ["task"],
+  props: {
+    task: Object,
+    onDelete: Function,
+  },
   data() {
     return {
       test: "",

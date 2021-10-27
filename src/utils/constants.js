@@ -3,13 +3,18 @@ const user = {
     {
       key: "user",
       label: "User Details",
-      class: "channel-title",
+      sortable: true,
+      sortByFormatted: true,
+      formatter: (value, key, item) => {
+        return item.firstname + " " + item.lastname;
+      },
     },
     {
       key: "taskCount",
       label: "Total Task",
       thClass: "text-center",
       tdClass: "text-center",
+      sortable: true,
     },
     {
       key: "lastUpdate",
@@ -26,12 +31,14 @@ const user = {
       key: "summary",
       label: "Task summary",
       class: "channel-title",
+      sortable: true,
     },
     {
       key: "status",
       label: "Status",
       thClass: "text-center",
       tdClass: "text-center",
+      sortable: true,
     },
     {
       key: "dueDate",

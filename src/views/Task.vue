@@ -24,13 +24,12 @@
           :headerText="'Completed'"
           :list="getCompletedTasks"
           :onUpdate="onUpdateTask"
-          :onDelete="onDeleteTask"
           :onEdit="onOpenModal"
         />
       </b-col>
     </b-row>
 
-    <NewTaskModal :task="objTask" />
+    <NewTaskModal :task="objTask" :onDelete="onDeleteTask" />
   </div>
 </template>
 
@@ -58,6 +57,7 @@ export default {
     },
     async onDeleteTask(item) {
       await this.$store.dispatch("deleteTask", item);
+      this.$bvModal.hide("new-task-modal");
     },
     async onSave() {
       await this.$store.dispatch(
@@ -69,11 +69,11 @@ export default {
     },
     onOpenModal(item) {
       if (!helper.isEmpty(item)) {
+        this.isAdd = false;
         this.objTask = {
           ...item,
           forEdit: true,
         };
-        this.isAdd = false;
       } else {
         this.isAdd = true;
         this.objTask = {

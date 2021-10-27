@@ -3,6 +3,7 @@
     <b-table
       responsive
       hover
+      sort-icon-left
       :items="list"
       :fields="fields"
       @row-clicked="onUserDetails"
@@ -11,7 +12,7 @@
         {{ data.item.firstname }} {{ data.item.lastname }}
       </template>
       <template #cell(taskCount)="data">
-        {{ data.item.taskCount }}
+        {{ data.item.taskCount ? data.item.taskCount : 0 }}
       </template>
       <template #cell(lastUpdate)="data">
         <span class="d-block">
@@ -21,8 +22,14 @@
           {{ extractTime(data.item.updatedAt) }}
         </span>
       </template>
-      <template #cell(actions)>
-        <i class="icon-ellipsis" />
+      <template #cell(actions)="data">
+        <b-btn
+          variant="link"
+          class="btn-transparent"
+          @click="onEdit(data.item)"
+        >
+          <i class="icon-ellipsis" />
+        </b-btn>
       </template>
     </b-table>
   </div>
@@ -31,7 +38,12 @@
 <script>
 import constants from "../utils/constants";
 export default {
-  props: ["list"],
+  props: {
+    list: Array,
+    onEdit: Function,
+    onUpdate: Function,
+    onDelete: Function,
+  },
   data() {
     return {
       fields: constants.user.userListTable,

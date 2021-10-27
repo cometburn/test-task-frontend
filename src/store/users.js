@@ -86,6 +86,51 @@ const actions = {
         });
       });
   },
+  async addUser({ commit }, payload) {
+    await axios
+      .post(api.apiUrl + "users/", payload, AxiosConfig())
+      .then((res) => {
+        commit("addTask", res.data);
+        commit("setError", null);
+      })
+      .catch((err) => {
+        commit("setError", {
+          status: err.response.status,
+          statusText: err.response.statusText,
+          data: err.response.data,
+        });
+      });
+  },
+  async updateUser({ commit }, payload) {
+    await axios
+      .put(api.apiUrl + "users/" + payload.id, payload, AxiosConfig())
+      .then((res) => {
+        commit("updateUser", res.data);
+        commit("setError", null);
+      })
+      .catch((err) => {
+        commit("setError", {
+          status: err.response.status,
+          statusText: err.response.statusText,
+          data: err.response.data,
+        });
+      });
+  },
+  async deleteUser({ commit }, payload) {
+    await axios
+      .delete(api.apiUrl + "users/" + payload.id, payload, AxiosConfig())
+      .then(() => {
+        commit("deleteUser", payload);
+        commit("setError", null);
+      })
+      .catch((err) => {
+        commit("setError", {
+          status: err.response.status,
+          statusText: err.response.statusText,
+          data: err.response.data,
+        });
+      });
+  },
 };
 
 const mutations = {
@@ -100,6 +145,17 @@ const mutations = {
   },
   setUserLocations(state, data) {
     state.userLocations = data;
+  },
+  addTask(state, data) {
+    state.userList.push(data);
+  },
+  updateUser(state, data) {
+    const idx = state.userList.findIndex((o) => o.id === data.id);
+    state.userList.splice(idx, 1, data);
+  },
+  deleteUser(state, data) {
+    const idx = state.userList.findIndex((o) => o.id === data.id);
+    state.userList.splice(idx, 1);
   },
 };
 
